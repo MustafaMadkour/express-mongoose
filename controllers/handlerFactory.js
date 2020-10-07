@@ -16,8 +16,14 @@ exports.createOne = Model =>
     const createdImages = await Images.create({ images: image });
     const caption = req.body.caption;
 
+    // TODO: user should be inferred from the token
+    // with a property that indicates whether this post is 
+    // anonymous or identified
+    // in the first prototype, we should check if the user is whitelisted or not
     const user = await User.create({ name: 'asdadasd', email: 'asdasd' });
-    const doc = await Model.create({
+
+    
+    const data = await Model.create({
       caption,
       images: createdImages._id,
       author: user._id
@@ -25,7 +31,7 @@ exports.createOne = Model =>
 
     res.status(201).json({
       status: 'success',
-      data: doc
+      data
     });
   });
 

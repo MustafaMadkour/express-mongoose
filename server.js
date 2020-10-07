@@ -1,14 +1,15 @@
+require('dotenv').config();
+
 const express = require('express');
 const connect = require('./lib/db');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary');
 const multer = require('multer');
 const uuid = require('uuid').v4;
-const cloudinaryStorage = require('./util/cloudinary-custom-storage');
+const cloudinaryStorage = require('./providers/cloudinary');
 const postRouter = require('./routes/postRoutes');
-require('dotenv').config();
-
 const app = express();
+
 
 app.use('/posts', postRouter);
 
