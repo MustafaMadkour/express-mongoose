@@ -5,6 +5,7 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    // TODO: use `resources` instead of images and change accorodingly
     images: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'images',
@@ -12,7 +13,7 @@ const postSchema = new mongoose.Schema(
     },
     isAnonymous: {
       type: Boolean,
-      default: false
+      default: true
     },
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
   },

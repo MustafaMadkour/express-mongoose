@@ -1,15 +1,18 @@
-const cloudinary = require('cloudinary');
+const config = require('config');
 const multer = require('multer');
+const {join} = require('path');
 const factory = require('./handlerFactory');
 const AppError = require('./../util/appError');
 const catchAsync = require('./../util/catchAsync');
 const Post = require('../models/postModel');
-const cloudinaryStorage = require('../util/cloudinary-custom-storage');
 
-const multerStorage = multer.memoryStorage();
+const activeProvider = config.get('active_provider.name')
+
 
 const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
+
+  // TODO: Allowed extensions/file types should be configured
+  if (file.mimetype.startsWith('image')) { 
     cb(null, true);
   } else {
     cb(new AppError('Not an image! Please upload only images.', 400), false);
@@ -17,7 +20,7 @@ const multerFilter = (req, file, cb) => {
 };
 
 const upload = multer({
-  storage: cloudinaryStorage,
+  storage: require(join('..', 'providers'))[activeProvider],
   fileFilter: multerFilter
 });
 
