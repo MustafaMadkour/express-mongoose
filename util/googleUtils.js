@@ -41,3 +41,9 @@ function urlGoogle() {
 }
 
 export const googleSignIn = urlGoogle();
+
+/*
+Google has given us a parameter on the redirect address called “code”. You will see this as:
+https://yourwebsite.com/callback?code=a-bunch-of-random-characters
+You need to extract this “code” parameter and give it back to the Google api library to check who the logged in user is
+*/
